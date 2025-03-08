@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1)
+cmake_minimum_required (VERSION 3.5)
 project(jansson C)
 
 # Options
@@ -275,9 +275,6 @@ configure_file (${CMAKE_CURRENT_SOURCE_DIR}/cmake/jansson_private_config.h.cmake
 # and tell the source code to include it
 add_definitions(-DHAVE_CONFIG_H)
 
-include_directories (${CMAKE_CURRENT_BINARY_DIR}/include)
-include_directories (${CMAKE_CURRENT_BINARY_DIR}/private_include)
-
 # Add the lib sources.
 file(GLOB JANSSON_SRC src/*.c)
 if (NOT USE_DTOA)
@@ -355,6 +352,9 @@ else()
    set_target_properties(jansson PROPERTIES
       POSITION_INDEPENDENT_CODE true)
 endif()
+
+target_include_directories (jansson PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_include_directories (jansson PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/private_include)
 
 if (JANSSON_EXAMPLES)
 	add_executable(simple_parse "${CMAKE_CURRENT_SOURCE_DIR}/examples/simple_parse.c")
