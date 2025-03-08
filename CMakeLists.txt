@@ -353,7 +353,10 @@ else()
       POSITION_INDEPENDENT_CODE true)
 endif()
 
-target_include_directories (jansson PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_include_directories (jansson PUBLIC 
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+	$<INSTALL_INTERFACE:include>
+)
 target_include_directories (jansson PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/private_include)
 
 if (JANSSON_EXAMPLES)
