@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.5)
+cmake_minimum_required (VERSION 3.5...3.24)
 project(jansson C)
 
 # Options
@@ -211,10 +211,9 @@ if (NOT DEFINED JSON_INT_T)
 
    # Apparently, Borland BCC and MSVC wants I64d,
    # Borland BCC could also accept LD
-   # and gcc wants ldd,
-   # I am not sure what cygwin will want, so I will assume I64d
+   # and gcc and mingw wants ldd,
 
-   if (WIN32) # matches both msvc and cygwin
+   if (WIN32 AND NOT MINGW) # matches both msvc and cygwin
       set (JSON_INTEGER_FORMAT "\"I64d\"")
    else ()
       set (JSON_INTEGER_FORMAT "\"lld\"")
